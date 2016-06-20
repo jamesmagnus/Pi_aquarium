@@ -1,11 +1,6 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 
-#define PIN_ALIM 29
-#define PIN_SONNETTE 1
-#define PIN_POMPE 4
-#define PIN_CHAUFFAGE 28
-
 int CARRY_ON_RING = 0;
 int CARRY_ON_HEAT = 0;
 

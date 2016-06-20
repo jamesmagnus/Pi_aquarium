@@ -1,33 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <wiringPi.h>
 #include <softTone.h>
+#include <string.h>
 #include <time.h>
 
 #include "main.h"
+#include "pin.h"
 
 int main(int argc, char* argv[])
 {
-/* Initialisation des differents composants */
+    /* Initialisation des differents composants */
     srand(time(NULL));
     wiringPiSetup();
     PinInitialisation();
 
+    if(piHiPri(10) != 0)
+        printf("Error switching priority: %d\n", errno), exit(-1);
+
     AllumerAlimentation();
     //DemarrerSonnette();
     //DemarrerPompe();
-    DemarrerChauffage();
+    //DemarrerChauffage();
     //delay(1000);
     //ArreterPompe();
-    int i = 0;
-    while(i < 3600)
-    {
-        i++;
-        delay(1000);
-    }
     //ArreterSonnette();
-    delay(1000);
-    ArreterChauffage();
+    //ArreterChauffage();
     EteindreAlimentation();
 
     return EXIT_SUCCESS;
@@ -43,7 +42,7 @@ void PinInitialisation()
         i++;
     }
 
-/* Pin en mode input avec pull-up */
+    /* Pin en mode input avec pull-up */
     i = 0;
     while(PINS_IN[i] != -1)
     {
